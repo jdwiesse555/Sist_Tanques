@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id Int @id @default(autoincrement())
+  email String @db.Text @unique
+  password String? @db.Text
+  tipoUsuario TipoUsuario  @default(USUARIO) @map("tipo_usuario")
+  nombre String? @db.Text
+  apellido String? @db.Text
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  @@map("usuarios")
+}
+
+model Equipo {
+  id Int @id @default(autoincrement())
+  nombre String @db.Text @unique
+  estadio String? @db.Text
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+ 
+  imagenId Int?  @map("imagen_id") 
+  imagen Imagen? @relation(fields: [imagenId],references: [id])
+
+ 
+ partidoEquipoLocal Partido[] @relation(name:"equipoLocal") 
+ partidoEquipoVisitante Partido[] @relation(name:"equipoVisitante") 
+ @@map("equipos")
+}
+
+model Partido{
+  id Int @id @default(autoincrement())
+  fecha DateTime? @db.Date
+  hora DateTime?  @db.Time()
+
+  equipoLocalId Int @map("equipo_local_id")
+  equipoLocal Equipo @relation(fields: [equipoLocalId], references: [id], name:"equipoLocal")
+  equipoVisitanteId Int @map("equipo_visitante_id")
+  equipoVisitante Equipo @relation(fields: [equipoVisitanteId], references: [id], name:"equipoVisitante")
+  
+  scoreEquipoLocal Int? @map("score_equipo_local")
+  scoreEquipoVisitante Int? @map("score_equipo_visitante")
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+  
+
+
+
+
+ @@map("partidos")
+}
+
+model Imagen {
+  id Int @id @default(autoincrement())
+  path String? @db.Text
+  ext  String? @db.Text
+  nombre String? @db.Text
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+  equipo_id Int 
+
+  equipo Equipo[]
+ 
+
+@@map("imagenes")
+}
+
+enum TipoUsuario {
+  ADMIN
+  USUARIO
+  MODERADOR
+}
+
+
+model listametricas{
+  id  Int @id @default(autoincrement())
+  metrica String @db.Text
+  comentario String? @db.Text
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  metricas metricas[]
+  tanques tanques[]
+  mediciones mediciones[]
+}
+
+model metricas{
+  id  Int @id @default(autoincrement())
+  metrica Int
+  medida String @db.Text
+  vol_bbls Decimal 
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+    lmetrica listametricas @relation(fields: [metrica],references: [id])
+}
+
+model tanques{
+  id  Int @id @default(autoincrement())
+  codigo String @db.Text
+  metrica Int
+  capacidad Decimal 
+  HEIGHT_PIES Decimal 
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+mediciones mediciones[]
+
+    listametrica listametricas @relation(fields: [metrica],references: [id])
+     
+}
+
+model mediciones {
+  id Int @id @default(autoincrement())
+  fecha DateTime
+  tanque Int
+  metrica Int
+  agua_pies String
+  agua_pul String
+  crudo_pies String
+  crudo_pul String
+  stock_agua Decimal 
+  stock_crudo Decimal
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+lmetrica_med listametricas @relation(fields: [metrica],references: [id])
+ltk_med tanques @relation(fields: [tanque],references: [id])
+
+}
