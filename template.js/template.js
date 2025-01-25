@@ -16,4 +16,4 @@ export const getEmailTemplate = (data) => {
         </form>
     `)
 
-} 
+}

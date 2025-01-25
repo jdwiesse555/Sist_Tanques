@@ -22,7 +22,7 @@ export const loginSerializer = z.object({
 })
 
 export const actulizarUsuarioSerializer = z.object({
-
+ 
   nombre: z.string().optional(),
   apellido: z.string().optional(),
   tipoUsuario: z.enum([

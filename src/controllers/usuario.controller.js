@@ -1,7 +1,9 @@
-import {actulizarUsuarioSerializer, loginSerializer, registrarUsuarioSerializer} from "./serializers/usuario.serializer.js"
+import {actulizarUsuarioSerializer, loginSerializer, registrarUsuarioSerializer,cambioPasswordSerializer} from "./serializers/usuario.serializer.js"
 import { genSalt,hash, compare } from "bcrypt";
 import {conexion} from "../conexion.js"
 import JWT from "jsonwebtoken";
+import { getEmailTemplate } from "../../template.js/template.js";
+import { sendEmail } from "../../template.js/email.util.js";
 
 
 export const  registrarUsuario = async (req,res) => {
@@ -76,8 +78,7 @@ export const actulizarUsuario = async (req,res) => {
     
     const dataValidada = actulizarUsuarioSerializer.parse(req.body.user)
     
-    const salt = await genSalt();
-    dataValidada.password = await hash(dataValidada.password,salt)
+   
     const usarioActualizado = await conexion.usuario.update({
         data : dataValidada,
         select: {

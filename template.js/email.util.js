@@ -11,7 +11,7 @@ const emailTransporter = nodemailer.createTransport({
     auth :{
         user:mail.user,
         pass:mail.pass
-    } 
+    }
 })
 
 export const sendEmail =  async (email,subject,html) => {
