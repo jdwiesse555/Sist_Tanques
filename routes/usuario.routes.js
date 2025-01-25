@@ -13,3 +13,5 @@ usuarioEnrutador.get("/usuario",asyncHandler(validarUsuario),asyncHandler(devolv
 usuarioEnrutador.get("/listausuarios",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(devolverUsuarios));
 usuarioEnrutador.post("/usuarioid",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(devolverUsuarioid));
 usuarioEnrutador.put("/delusuario",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(borrarUsuario));
+usuarioEnrutador.post("/sendemail",asyncHandler(sendEmailToResetPass));
+usuarioEnrutador.post("/resetclave/:token",asyncHandler(resetPassword));

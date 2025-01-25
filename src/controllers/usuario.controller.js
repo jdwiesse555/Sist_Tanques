@@ -153,3 +153,97 @@ export const borrarUsuario = async (req,res) => {
         content : usarioborrado,
     })
 }
+
+export const sendEmailToResetPass = async(req,res) => {
+    try {
+        const email_user = req.body.email;
+        const user = await conexion.usuario.findFirstOrThrow({
+            where: { email:email_user},
+        });
+        
+    if (!user) {
+        res.json({
+            success:false,
+            message:"Error Email incorrecto"
+        }); 
+    }    
+    const token = JWT.sign({usuarioId:user.id},
+        process.env.SECRET_KEY,
+        {
+            expiresIn: 60 * 60 * 4, // si es entero son segundos alli seria 4 horas
+        })
+        const data ={
+            email:email_user,
+            token:token
+        }
+        
+        const emailHTMLTemplate = getEmailTemplate(data);
+        
+        await sendEmail(email_user,'recuperar contraseña',emailHTMLTemplate)
+        res.json({
+            
+            message:"Email enviado correctamente"
+        }); 
+    }
+    catch(error) {
+        console.log("Error",error.message);
+        res.json({
+            success:false,
+            message:"Error al enviar email"
+        });
+    }
+}
+
+export const resetPassword = async(req,res) => {
+
+
+    try {
+        const {token} = req.params;
+        const {password,password2} = req.body
+        
+
+        
+        if(password != password2){
+            return res.json({
+                success:false,
+                message:"las Contraseñas no coinciden"
+            });
+        }
+      
+        const payload = JWT.verify(token,process.env.SECRET_KEY)
+        console.log(payload.usuarioId,"id user")
+        const dataValidada = cambioPasswordSerializer.parse({password:password })
+        
+
+        const salt = await genSalt();
+        dataValidada.password = await hash(dataValidada.password,salt)
+
+        const usarioActualizado = await conexion.usuario.update({
+            data : dataValidada  ,
+            select: {
+                id :true,
+                nombre:true,
+                apellido:true,
+                email:true,
+                tipoUsuario:true,
+            },
+            where: {
+                
+                id:payload.usuarioId
+            },
+        })
+        
+        console.log(usarioActualizado)
+        return res.json({
+            message:"Clave  actualizado exitosamente",
+            content : usarioActualizado,
+        })
+    }
+    catch(error) {
+        console.log("Error",error.message);
+        res.json({
+            success:false,
+            message:"Error " + error.message
+        });
+    }
+}
