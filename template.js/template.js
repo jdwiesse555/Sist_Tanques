@@ -2,7 +2,7 @@ export const getEmailTemplate = (data) => {
     const{email,token} = data;
 
     const emailUser = email.split('@')[0].toString();
-    const url = 'http://127.0.0.1:3000/resetclave';
+    const url = 'https://frontend-sist-tanques.vercel.app';
 
     return (`
         <form>

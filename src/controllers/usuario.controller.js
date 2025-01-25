@@ -200,7 +200,7 @@ export const resetPassword = async(req,res) => {
 
     try {
         const {token} = req.params;
-        const {password,password2} = req.body
+        const {password,password2} = req.body.form
         
 
         
