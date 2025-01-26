@@ -10,7 +10,7 @@ usuarioEnrutador.post("/registro",asyncHandler(validarUsuario),asyncHandler(vali
 usuarioEnrutador.post("/login",asyncHandler(login));
 usuarioEnrutador.put("/actualizar-usuario",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(actulizarUsuario));
 usuarioEnrutador.get("/usuario",asyncHandler(validarUsuario),asyncHandler(devolverUsuario));
-usuarioEnrutador.get("/listausuarios",asyncHandler(devolverUsuarios));
+usuarioEnrutador.get("/listausuarios",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(devolverUsuarios));
 usuarioEnrutador.post("/usuarioid",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(devolverUsuarioid));
 usuarioEnrutador.put("/delusuario",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(borrarUsuario));
 usuarioEnrutador.post("/sendemail",asyncHandler(sendEmailToResetPass));
