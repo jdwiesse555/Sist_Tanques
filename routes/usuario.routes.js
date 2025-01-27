@@ -5,8 +5,8 @@ import { validarUsuario ,validadAdmin} from '../src/middlewares.js';
 
 export const usuarioEnrutador = express.Router();
 
-//captura el controlador asycrono
 usuarioEnrutador.post("/registro",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(registrarUsuario));
+
 usuarioEnrutador.post("/login",asyncHandler(login));
 usuarioEnrutador.put("/actualizar-usuario",asyncHandler(validarUsuario),asyncHandler(validadAdmin),asyncHandler(actulizarUsuario));
 usuarioEnrutador.get("/usuario",asyncHandler(validarUsuario),asyncHandler(devolverUsuario));

@@ -10,6 +10,9 @@ import { tanquesEnrutador } from "../routes/tanques.router.js";
 import { listametricasEnrutador } from "../routes/listametricas.routes.js";
 import { metricaEnrutador } from "../routes/metricas.routes.js";
 import { medicionesEnrutador } from "../routes/mediciones.routes.js";
+//import {swaggerDocs} from "./swagger.js"
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocumentation from './swagger.json' with {type:'json'};
 
 AWS.config.update({ 
     credentials : {
@@ -24,6 +27,7 @@ const servidor = express();
 servidor.use(cors());
 servidor.use(express.json());
 
+servidor.use('/doc',swaggerUI.serve,swaggerUI.setup(swaggerDocumentation ));
 //agregar rutas
 servidor.use(usuarioEnrutador);
 servidor.use(equipoEnrutador);
@@ -54,5 +58,6 @@ servidor.use((error,req,res,next) => {
 
 
 servidor.listen(process.env.PORT,() => {
-    console.log(`serviodr corriendo exitosamente en el puerto ${process.env.PORT} `)
+    console.log(`serviodr corriendo exitosamente en el puerto ${process.env.PORT} `);
+  //  swaggerDocs(servidor,process.env.PORT);
 })

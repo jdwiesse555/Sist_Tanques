@@ -7,21 +7,22 @@ import { sendEmail } from "../../template.js/email.util.js";
 
 
 export const  registrarUsuario = async (req,res) => {
+    
     const data = req.body.user
     //valida si la data esta corresta
-   
+    console.log(data);
     const dataValidada = registrarUsuarioSerializer.parse(data);
-    console.log(dataValidada);
+    console.log("2",dataValidada);
 
-    const salt = await genSalt();
-    const password = await hash(dataValidada.password,salt)
+  //  const salt = await genSalt();
+  //  const password = await hash(dataValidada.password,salt)
 
     const nuevoUsuario = await conexion.usuario.create({
         data:{
             email: dataValidada.email,
             apellido:dataValidada.apellido,
             nombre:dataValidada.nombre,
-            password,
+   //         password,
             tipoUsuario:dataValidada.tipoUsuario,
         },
         select:{
