@@ -26,58 +26,6 @@ model Usuario {
   @@map("usuarios")
 }
 
-model Equipo {
-  id Int @id @default(autoincrement())
-  nombre String @db.Text @unique
-  estadio String? @db.Text
-  createdAt DateTime  @default(now())   @map("created_at")
-  updatedAt DateTime @updatedAt() @map("updated_at")
- 
-  imagenId Int?  @map("imagen_id") 
-  imagen Imagen? @relation(fields: [imagenId],references: [id])
-
- 
- partidoEquipoLocal Partido[] @relation(name:"equipoLocal") 
- partidoEquipoVisitante Partido[] @relation(name:"equipoVisitante") 
- @@map("equipos")
-}
-
-model Partido{
-  id Int @id @default(autoincrement())
-  fecha DateTime? @db.Date
-  hora DateTime?  @db.Time()
-
-  equipoLocalId Int @map("equipo_local_id")
-  equipoLocal Equipo @relation(fields: [equipoLocalId], references: [id], name:"equipoLocal")
-  equipoVisitanteId Int @map("equipo_visitante_id")
-  equipoVisitante Equipo @relation(fields: [equipoVisitanteId], references: [id], name:"equipoVisitante")
-  
-  scoreEquipoLocal Int? @map("score_equipo_local")
-  scoreEquipoVisitante Int? @map("score_equipo_visitante")
-  createdAt DateTime  @default(now())   @map("created_at")
-  updatedAt DateTime @updatedAt() @map("updated_at")
-  
-
-
-
-
- @@map("partidos")
-}
-
-model Imagen {
-  id Int @id @default(autoincrement())
-  path String? @db.Text
-  ext  String? @db.Text
-  nombre String? @db.Text
-  createdAt DateTime  @default(now())   @map("created_at")
-  updatedAt DateTime @updatedAt() @map("updated_at")
-  equipo_id Int 
-
-  equipo Equipo[]
- 
-
-@@map("imagenes")
-}
 
 enum TipoUsuario {
   ADMIN

@@ -3,9 +3,7 @@ import { usuarioEnrutador } from "../routes/usuario.routes.js";
 import { ZodError } from "zod";
 import { Prisma } from "@prisma/client";
 import cors from "cors";
-import { equipoEnrutador } from "../routes/equipo.routes.js";
 import AWS from "aws-sdk"
-import { imagenEnrutador } from "../routes/imagen.routes.js";
 import { tanquesEnrutador } from "../routes/tanques.router.js";
 import { listametricasEnrutador } from "../routes/listametricas.routes.js";
 import { metricaEnrutador } from "../routes/metricas.routes.js";
@@ -30,8 +28,6 @@ servidor.use(express.json());
 servidor.use('/doc',swaggerUI.serve,swaggerUI.setup(swaggerDocumentation ));
 //agregar rutas
 servidor.use(usuarioEnrutador);
-servidor.use(equipoEnrutador);
-servidor.use(imagenEnrutador);
 servidor.use(tanquesEnrutador);
 servidor.use(listametricasEnrutador);
 servidor.use(metricaEnrutador);
