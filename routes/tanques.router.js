@@ -10,14 +10,11 @@ export const tanquesEnrutador = express();
 
 tanquesEnrutador
 .route("/tanque")
-.post(asyncHandler(validarUsuario),
-    asyncHandler(crearTanque));
+.post(asyncHandler(crearTanque));
 tanquesEnrutador.route("/tanques")
-.get(
-    asyncHandler(devolverTanques));
+.get(asyncHandler(devolverTanques));
 tanquesEnrutador.route("/deltanques")
-.put(asyncHandler(borrartanque));
-    
+.put(asyncHandler(borrartanque)); 
 tanquesEnrutador.route("/devtanques")
 .post(asyncHandler(devolvertanque));    
 tanquesEnrutador.route("/acttanques")

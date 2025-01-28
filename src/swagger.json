@@ -18,28 +18,39 @@
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
+            "type": "Token"
+
           },
           {
-            "name": "email",
-            "in": "boby",
-            "type": "string"
-          },
-          {
-            "name": "nombre",
-            "in": "boby",
-            "type": "string"
-          },
-          {
-            "name": "apellido",
-            "in": "boby",
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "xxxx@gmail.com"
+                },
+                "tipoUsuario":{
+                  "example": "USUARIO"
+                },
+                "nombre":{
+                  "example": "xxxxx"
+                },
+                "apellido":{
+                  "example": "yyyyyy"
+                }
+              }
+            }
           }
         ],
 
+
         "responses": {
-          "403": {
-            "description": "Forbidden"
+          "200": {
+            "description": "OK"
+          },
+          "400-500": {
+            "description": "Error"
           }
         }
       }
@@ -47,6 +58,24 @@
     "/login": {
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "xxxx@gmail.com"
+                },
+                "password":{
+                  "example": "Welcome432%"
+                }
+              }
+            }
+          }
+
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -64,10 +93,31 @@
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
+            "type": "Token"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tipoUsuario":{
+                  "example": "USUARIO"
+                },
+                "nombre":{
+                  "example": "xxxxx"
+                },
+                "apellido":{
+                  "example": "yyyyyy"
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "403": {
             "description": "Forbidden"
           }
@@ -81,10 +131,13 @@
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
+            "type": "Token"
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "403": {
             "description": "Forbidden"
           }
@@ -98,10 +151,13 @@
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
+            "type": "Token"
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "403": {
             "description": "Forbidden"
           }
@@ -115,10 +171,25 @@
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
+            "type": "Token"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id":{
+                  "example": 1
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "403": {
             "description": "Forbidden"
           }
@@ -133,9 +204,24 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id":{
+                  "example": 1
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "403": {
             "description": "Forbidden"
           }
@@ -202,12 +288,32 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "codigo": {
+                  "example": "TK-03"
+                },
+                "metrica": {
+                  "example": "TM-010"
+                },
+                "capacidad": {
+                  "example": "123487"
+                },
+                "HEIGHT_PIES": {
+                  "example": "2309"
+                }
+              }
+            }
           }
+
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "403": {
             "description": "Forbidden"
           }
@@ -218,21 +324,7 @@
       "get": {
         "description": "",
         "parameters": [
-          {
-            "name": "codigo",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "type": "string"
-          }
+
         ],
         "responses": {
           "200": {
@@ -337,7 +429,7 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "example": "any"
+                  "example": 4
                 }
               }
             }
