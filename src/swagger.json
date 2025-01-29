@@ -453,7 +453,13 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "example": "any"
+                  "properties": {
+                    "comentario":{
+                      "example": "xxxyyyyzzz"
+                    }
+
+                  }
+                  
                 },
                 "id": {
                   "example": "any"
@@ -480,7 +486,13 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "example": "any"
+                  "properties": {
+                    "metrica":{
+                      "example": "TM-011"},
+                    "comentario":{
+                      "example": "xxxyyyyzzz"
+                    }
+                  }
                 }
               }
             }
@@ -532,12 +544,32 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object", 
+              "properties": {
+                "data": {
+                  "properties":{
+                     "metrica": {
+                        "example": 4
+                      } ,
+                      "medida": {
+                         "example": "0206"
+                      } ,
+                        "vol_bbls": {
+                          "example": 12344
+                      }
           }
+        }
+
+
+      }}}
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "403": {
             "description": "Forbidden"
           }
@@ -630,14 +662,19 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "example": "any"
+                  "properties":{
+                    "vol_bbls": {
+                        "example": 1234
+                  }
+                  
                 },
                 "id": {
-                  "example": "any"
+                  "example": 2
                 }
               }
             }
           }
+        }
         ],
         "responses": {
           "200": {
@@ -657,7 +694,7 @@
               "type": "object",
               "properties": {
                 "metrica": {
-                  "example": "any"
+                  "example": "TM-011"
                 },
                 "medida": {
                   "example": "any"
@@ -718,10 +755,26 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "example": "any"
+                  "properties": {
+
+                    "agua_pies":{
+                      "ejemplo":"05"
+                    },
+                    "agua_pul":{
+                      "ejemplo":"04"
+                    },
+                    "crudi_pies":{
+                      "ejemplo":"05"
+                    },
+                    "crudi_pul":{
+                      "ejemplo":"04"
+                    }
+
+                    
+                }
                 },
                 "id": {
-                  "example": "any"
+                  "example": 1
                 }
               }
             }
@@ -745,7 +798,30 @@
               "type": "object",
               "properties": {
                 "data": {
-                  "example": "any"
+                  "properties": {
+                    "fecha":{
+                      "ejemplo":"01/01/2025"
+                    },
+                    "tanque":{
+                      "ejemplo":"TK-01"
+                    },
+
+                    "agua_pies":{
+                      "ejemplo":"05"
+                    },
+                    "agua_pul":{
+                      "ejemplo":"04"
+                    },
+                    "crudi_pies":{
+                      "ejemplo":"05"
+                    },
+                    "crudi_pul":{
+                      "ejemplo":"04"
+                    }
+
+                    
+                }
+                  
                 }
               }
             }

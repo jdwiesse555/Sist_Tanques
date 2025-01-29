@@ -10,8 +10,7 @@ export const metricaEnrutador = express();
 
 metricaEnrutador
 .route("/metrica")
-.post(asyncHandler(validarUsuario),
-    asyncHandler(crearMetrica));
+.post(asyncHandler(crearMetrica));
 metricaEnrutador.route("/metricas")
 .get(asyncHandler(devolverMetricas));
 metricaEnrutador.route("/delmetrica")
